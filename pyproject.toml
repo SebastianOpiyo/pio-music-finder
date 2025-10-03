@@ -1,0 +1,149 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pio-music-finder"
+version = "0.1.0"
+description = "A smart AI tool that listens through the bits and lyrics and identifies songs in seconds"
+readme = "Readme.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "SebastianOpiyo", email = "sebamopale@gmail.com"},
+]
+keywords = ["music", "ai", "recognition", "audio", "lyrics", "beats"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+]
+
+# Core dependencies
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "requests>=2.25.0",
+]
+
+# Optional dependencies for different features
+[project.optional-dependencies]
+audio = [
+    "pyaudio>=0.2.11",
+    "sounddevice>=0.4.4",
+    "pydub>=0.25.0",
+]
+analysis = [
+    "librosa>=0.9.0",
+    "madmom>=0.16.1",
+    "aubio>=0.4.9",
+    "essentia>=2.1b6.dev374",
+]
+recognition = [
+    "acrcloud-sdk>=1.0.0",
+    "spotipy>=2.22.0",
+]
+lyrics = [
+    "lyricsgenius>=3.0.1",
+    "musixmatch>=0.9",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=2.20.0",
+]
+all = [
+    "pio-music-finder[audio,analysis,recognition,lyrics]",
+]
+
+# Entry points for command-line interface
+[project.scripts]
+pio-music-finder = "main:main"
+
+[project.urls]
+Homepage = "https://github.com/SebastianOpiyo/pio-music-finder"
+Repository = "https://github.com/SebastianOpiyo/pio-music-finder"
+Issues = "https://github.com/SebastianOpiyo/pio-music-finder/issues"
+
+# Tool configurations
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = [
+    "tests",
+]
+python_files = [
+    "test_*.py",
+    "*_test.py",
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+
+# Hatchling build configuration
+[tool.hatch.build.targets.wheel]
+include = [
+    "*.py",
+    "README.md",
+    "PACKAGE_GUIDE.md",
+]
+exclude = [
+    "tests/",
+    "music-venv/",
+]
