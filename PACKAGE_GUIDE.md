@@ -2,7 +2,7 @@
 
 ## Using pyproject.toml
 
-Your project now uses `pyproject.toml` for modern Python package management. Here's how to use it:
+This project uses `pyproject.toml` for modern Python package management. Here's how to use it:
 
 ## Installation Options
 
@@ -94,10 +94,3 @@ pip install twine
 twine upload dist/*
 ```
 
-## Key Benefits of pyproject.toml
-
-- **Single configuration file** for all project settings
-- **Optional dependencies** for different use cases
-- **Modern Python packaging** standards (PEP 518, 621)
-- **Tool configuration** in one place (black, pytest, mypy)
-- **Better dependency resolution** than requirements.txt
